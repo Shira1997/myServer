@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table From Array</title>
+    <link rel="stylesheet" href="css.css">
+
+</head>
+<body>
+    <div class=cent2>
+        <h1>Table For Data:</h1>
+        <table id="table1" border="1"></table><br>
+    </div>
+    <div>
+        <button onclick="SortrGradeLowToHigh()"> Sort Grade Low To High</button>
+        <button onclick="SortGradeHighToLow()"> Sort Grade High To Low</button>
+    </div>
+    <!-- <div>
+        <hr width="60%">
+        Name: <input type="text" id="name1"><br>
+        username: <input type="text" id="username1"><br>
+        email: <input type="text" id="email1"><br>
+        password: <input type="password" id="password1"><br>
+        Grade: <input type="number" id="grade1"><br>
+        <button onclick="addToTable()">Add To Table</button>
+        <hr width="60%">
+        <button onclick="exportData()">Export data</button>
+        <div id = "exportdata"></div>
+    </div> -->
+    <a href="/login.html">Back to login</a>
+    <script>
+        let data = [];
+        fetch("/showlist").then(res=>res.json()).then(json =>{
+            console.log(json);
+            data = json;
+            showTable();
+        })
+
+        const table = document.getElementById("table1");
+        function showTable(){
+            let str = "<tr><th>Name</th><th>Grade</th></tr>";
+            for(let i=0; i < data.length ; i++){
+                str += "<tr><td>" + data[i].Name + "</td> <td>" +data[i].Grade + "</td></tr>";
+            }
+            table.innerHTML = str;
+        }
+        showTable();
+
+    //     function orderByGrade(){
+    //         data.sort(function(x,y){;
+    //         let b=0;
+    //         if(x.grade > y.grade) {b=1;}
+    //         else if(x.grade < y.grade) {b=-1;}
+    //         return b;
+    //         })
+    //     console.log(data);
+    //     showTable();
+    // }
+
+    function SortrGradeLowToHigh() {
+    data.sort(function (x, y) {
+        let check = 0;
+        if (x.Grade > y.Grade) {
+            return 1;
+        }
+        else if (x.Grade < y.Grade) {
+            return -1;
+        }
+        return check;
+    })
+    showTable();
+};
+
+function SortGradeHighToLow() {
+    data.sort(function (x, y) {
+        let check = 0;
+        if (x.Grade < y.Grade) {
+            return 1;
+        }
+        else if (x.Grade > y.Grade) {
+            return -1;
+        }
+        return check;
+    })
+    showTable();
+};
+
+        // function addToTable() {
+        //     let name = document.getElementById("name1").value;
+        //     let username = document.getElementById("username1").value;
+        //     let email = document.getElementById("email1").value;
+        //     let password = document.getElementById("password1").value; 
+        //     let grade = document.getElementById("grade1").value;
+        //     data.push({Name:name,Username:username, Email:email, Password:password, Grade:grade});
+        //     showTable();
+        //     fetch(`/insert?name=${name}&grade=${grade}&username=${username}&email=${email}&password=${password}`).then();
+        // }
+
+        // function exportData() {
+        //     let dataJson = JSON.stringify(data);
+        //     document.getElementById("exportdata").innerHTML = dataJson;
+        // }
+    </script>
+</body>
+</html>

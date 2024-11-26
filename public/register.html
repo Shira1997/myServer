@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+    <h1>Registration Form</h1>
+
+    <div>
+        <form action="hello.html" method="get" onsubmit="return Validate()">
+        <label>
+        Name: <input type="text" id="name1" placeholder="Enter your name" required minlength="1"><br><br>
+        </label>
+
+        <label>
+        Username: <input type="text" id="username1" placeholder="Enter your username" required minlength="1"><br><br>
+        </label>
+        
+        <label>
+        Email: <input type="email" id="email1" placeholder="Enter your mail"
+        title="Must contain '@' and '.'" required minlength="1" required pattern=".+@.+\..+"/> <br><br>
+        </label>
+
+        <label>
+        Re-Enter Mail: <input type="email" name="Re-mail" id="mail2" placeholder="Re-enter your mail" 
+        title="Must contain '@' and '.'" required minlength="1" required pattern=".+@.+\..+"/> <br> <br>
+        </label>
+
+        <label>
+        Password: <input type="password" id="password1"  placeholder="Enter your password"
+        required minlength="3" pattern=".{3,}" title="At least 3 characters required"><br><br>
+        </label>
+
+        <label>
+        Re-enter Password: <input type="password" name="Re-Password" id="pass2" placeholder="Re-enter your password"
+        placeholder="Re-enter your password" required minlength="3" pattern=".{3,}" title="At least 3 characters required"/> <br><br>
+        </label>
+          
+
+        <label>
+        Grade: <input type="number" id="grade1" max="999" required pattern="\d{3}" placeholder="Please enter yout grade"
+        title="Only 3 digits allowed"><br><br>
+        </label>
+        <button onclick="addToTable()">Registration</button>
+    </form>
+    <a href="/login.html">Back to Login</a>
+    </div>
+
+    <script>
+
+function Validate(){
+        var mail1 = document.getElementById("email1").value;
+        var mail2 = document.getElementById("mail2").value;
+        var pass1 = document.getElementById("password1").value;
+        var pass2 = document.getElementById("pass2").value;
+        if (mail1 !== mail2 && pass1 !== pass2) {
+            alert("Mail and password mismatch");
+            return false;
+        }
+        else if (mail1 !== mail2)
+        {
+            alert("Mail mismatch");
+            return false;
+        }
+        else if (pass1 !== pass2)
+        {
+            alert("Password mismatch");
+            return false;
+        }
+        return true;
+    }
+
+
+    function addToTable() {
+        if (Validate()){
+        let name = document.getElementById("name1").value;
+        let username = document.getElementById("username1").value;
+        let email = document.getElementById("email1").value;
+        let password = document.getElementById("password1").value; 
+        let grade = document.getElementById("grade1").value;
+        fetch(`/insert?name=${name}&grade=${grade}&username=${username}&email=${email}&password=${password}`).then();
+        }
+    }
+</script>
+</body>
+</html>
